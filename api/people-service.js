@@ -6,10 +6,18 @@ module.exports = class PeopleService {
     }
 
     updatePeople(id, people) {
-        // To be implemented!
+        if (!this.peoples.some(p => p.id == id)) return false;
+
+        let peopleToUpdate = this.peoples.findIndex(p => p.id == id);
+        this.peoples[peopleToUpdate].name = people.name;
+        return true;
     }
-    
+
     getPeople(filters) {
-        // To be implemented!
+        return this.peoples.filter(p => {
+            return Object.keys(filters).every(f => {
+                return p[f] === filters[f];
+            });
+        });
     }
 }
